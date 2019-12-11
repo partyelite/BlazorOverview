@@ -1,0 +1,33 @@
+﻿@inherits ComponentBase<UserModel>
+
+<h3>User editor</h3>
+<br />
+
+<span>Name:</span>
+<br />
+<input type="text" @bind-value="DataContext.Name" style="width:200px" />
+<br />
+<br />
+<span>Lastname:</span>
+<br />
+<input type="text" @bind-value="DataContext.LastName" @bind-value:event="oninput" style="width:200px" />
+<br />
+<br />
+<span>Level:</span>
+<br />
+<input type="number" @bind-value="DataContext.Level" style="width:200px" />
+<br />
+<br />
+
+<button @onclick="UpdateData">Randomize user data</button>
+
+<br />
+<br />
+
+<h3>Preview</h3>
+
+Name: @DataContext.Name
+<br />
+LastName: @DataContext.LastName
+<br />
+Age: @DataContext.Level

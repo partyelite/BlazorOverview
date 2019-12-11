@@ -1,0 +1,24 @@
+﻿
+@page "/uiculture"
+
+<UICultureComponent Culture="@Culture"></UICultureComponent>
+<br/><br/>
+<button @onclick="Change">Toggle HR/US</button>
+
+
+@code {
+
+    private string Culture { get; set; } = "hr-HR";
+
+    protected override void OnInitialized()
+    {
+        System.Globalization.CultureInfo.CurrentCulture = new System.Globalization.CultureInfo(Culture);
+    }
+
+    public void Change()
+    {
+        Culture = Culture.StartsWith("hr") ? "en-US" : "hr-HR";
+        System.Globalization.CultureInfo.CurrentCulture = new System.Globalization.CultureInfo(Culture);
+    }
+}
+

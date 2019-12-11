@@ -1,0 +1,63 @@
+﻿
+@foreach (var field in FieldIdentitfiers)
+{
+    @CreateComponent(field.Key, field.Value);
+    <br />
+    <br />
+}
+
+<h3>Preview</h3>
+<br />
+Name: @User.Name
+<br />
+LastName: @User.LastName
+<br />
+Level: @User.Level
+
+
+@code {
+    [Parameter]
+    public UserModel User { get; set; }
+
+    private Dictionary<string, string> FieldIdentitfiers { get; set; } = new Dictionary<string, string>();
+
+    private Type Type { get; set; }
+
+    private int Iterator { get; set; } = 1;
+
+    protected override void OnInitialized()
+    {
+        Type = typeof(UserModel);
+
+        var props = Type.GetProperties();
+        foreach (var prop in props)
+        {
+            FieldIdentitfiers.Add(prop.Name, prop.PropertyType.Name);
+        }
+    }
+
+    public RenderFragment CreateComponent(string fldName, string fldType) => builder =>
+    {
+        builder.OpenElement(Iterator++, "span");
+        builder.AddMarkupContent(Iterator++, $"{fldName}:");
+        builder.CloseElement();
+
+        builder.OpenElement(Iterator++, "br");
+        builder.CloseElement();
+
+        builder.OpenElement(Iterator++, "input");
+        builder.AddAttribute(Iterator++, "type", fldType == "String" ? "text" : "number");
+
+        // Get the initial property value
+        var propertyInfoValue = Type.GetProperty(fldName);
+        var propertyValue = propertyInfoValue.GetValue(User);
+        builder.AddAttribute(Iterator++, "value", propertyValue);
+
+        if (fldType == "String")
+            builder.AddAttribute(Iterator++, "onchange", EventCallback.Factory.CreateBinder(this, __value => propertyInfoValue.SetValue(User, __value), (string)propertyInfoValue.GetValue(User)));
+        else
+            builder.AddAttribute(Iterator++, "onchange", EventCallback.Factory.CreateBinder(this, __value => propertyInfoValue.SetValue(User, __value), (int)propertyInfoValue.GetValue(User)));
+
+        builder.CloseElement();
+    };
+}

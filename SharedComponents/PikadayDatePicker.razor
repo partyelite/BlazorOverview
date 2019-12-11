@@ -1,0 +1,38 @@
+﻿@using Microsoft.JSInterop;
+@inject JSInterop jsInterop
+@implements IDisposable
+
+<h3>Pikaday DatePicker</h3>
+<input type="text" @ref="inputEl" id="@Rnd" readonly />
+
+@code {
+    protected override void OnInitialized()
+    {
+        Rnd = new Random().Next().ToString();
+    }
+
+    public string Rnd { get; set; }
+    private ElementReference inputEl;
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (!firstRender)
+            return;
+
+        await jsInterop.InitializePikaday(inputEl, DotNetObjectReference.Create(this));
+    }
+
+    public async void Dispose()
+    {
+        await jsInterop.DisposePikaday(inputEl);
+    }
+
+    [JSInvokable]
+    public void ShowPikaday(string datetime)
+    {
+        Console.WriteLine(Rnd);
+        Console.WriteLine(datetime);
+    }
+}

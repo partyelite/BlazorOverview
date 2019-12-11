@@ -1,0 +1,21 @@
+﻿@inject TimeState TimeState
+
+@implements IDisposable
+
+Hi, I can update time as well 
+<br/>
+@TimeState.SelectedTime
+<br/>
+<button @onclick="(()=>TimeState.UpdateTime(DateTime.Now.AddHours(-2).ToLongTimeString()))">Update time</button>
+
+@code {
+    protected override void OnInitialized()
+    {
+        TimeState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        TimeState.OnChange -= StateHasChanged;
+    }
+}

@@ -1,0 +1,19 @@
+﻿@using BlazorJsInterop
+
+@page "/jsinterop"
+
+<h3>JSInterop</h3>
+<br/>
+
+<button @onclick="ShowAlert">Show JS Alert</button>
+
+@code {
+
+    [Inject] 
+    private BlazorJsUtilsInterop _blazorJsInterop { get; set; }
+
+    public void ShowAlert()
+    {
+        _blazorJsInterop.Alert("Hello there");
+    }
+}

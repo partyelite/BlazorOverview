@@ -1,0 +1,54 @@
+﻿@using BlazorOverviewShared.Pages.User
+
+@page "/templatedList"
+
+<h2>Templated list no. 1</h2>
+<ListTemplateComponent Items="Users" Context="user">
+    <HeaderTemplate>
+        <b>@($"{user.Name} {user.LastName}")</b>
+    </HeaderTemplate>
+    <DetailTemplate>
+        <div>@user.Name is level @user.Level</div>
+    </DetailTemplate>
+</ListTemplateComponent>
+
+
+<br />
+<h2>Templated list no. 2</h2>
+
+<ListTemplateComponent Items="Users">
+    <HeaderTemplate>
+        @if (context.Level < 3)
+        {
+            <b>NOOB</b>
+        }
+        else
+        {
+            <b>MASTER</b>
+        }
+    </HeaderTemplate>
+    <DetailTemplate>
+        <div style="color:forestgreen">@context.Name</div>
+    </DetailTemplate>
+</ListTemplateComponent>
+
+
+@code {
+    public List<UserModel> Users { get; set; } = new List<UserModel>();
+
+    [Inject] 
+    UserMock UserMock { get; set; }
+
+    protected override void OnInitialized()
+    {
+        for (var i = 0; i < 5; i++)
+        {
+            Users.Add(new UserModel()
+            {
+                LastName = UserMock.GetNextLastName(),
+                Name = UserMock.GetNextName(),
+                Level = UserMock.GetNextLevel()
+            });
+        }
+    }
+}

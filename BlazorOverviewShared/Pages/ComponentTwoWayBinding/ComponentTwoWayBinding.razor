@@ -1,0 +1,20 @@
+﻿
+@page "/twowaybindingbetweencomponents"
+
+<h4>@Title</h4>
+
+<br />
+<button @onclick="UpdateTitle">Update my title</button>
+<br/>
+
+<ChildTitleComponent @bind-ParentsTitle="Title" />
+
+
+@code {
+    private string Title { get; set; } = "Hello, World!";
+
+    private void UpdateTitle()
+    {
+        Title = "Hello, Blazor!";
+    }
+}

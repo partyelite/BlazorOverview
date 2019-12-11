@@ -1,0 +1,7 @@
+﻿@inject TimeState TimeState
+
+Hello there. I can update time
+<br />
+
+<button @onclick="(()=>TimeState.UpdateTime(DateTime.Now.ToLongTimeString()))">Update time</button>
+<br/>

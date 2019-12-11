@@ -1,0 +1,137 @@
+﻿<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">BlazorOverview</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu" style="height:calc(100vh - 60px); overflow:auto;">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="counter">
+                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="fetchdata">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="user">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> User
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="userdecoupled">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> User decoupled
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="userdynamic">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> User dynamic
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="templatedList">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Templated list
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="twowaybindingbetweencomponents">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Two way binding
+            </NavLink>
+        </li>
+
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="componentcommunication">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Component comm
+            </NavLink>
+        </li>
+
+
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="uiculture">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> UI culture
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="jsinterop">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> JS Interop
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="sharedComponent">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Shared component
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="formvalidation">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Form validaton
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="fluentformvalidation">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> FluentForm validaton
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="authenticated">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Authenticated
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="login">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Login
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="adminonly">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Admin only
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="useronly">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> User only
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="logout">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Logout
+            </NavLink>
+        </li>
+
+    </ul>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

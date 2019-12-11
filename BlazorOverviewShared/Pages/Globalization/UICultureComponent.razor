@@ -1,0 +1,39 @@
+﻿<h3>LocalizedComponent</h3>
+<br/>
+
+Current date:
+<b>@DateTime.Now.ToShortDateString()</b>
+<br />
+<br />
+Amount: @(1000.ToString("N2"))
+<br />
+<br />
+Amount: @(10000.ToString("N2"))
+<br />
+<br />
+Amount: @(100000.ToString("N2"))
+<br />
+<br />
+Amount: @(1000000.ToString("N2"))
+<br />
+<br />
+Sum: <b>@DecimalNumber</b>
+<br />
+<br />
+<span>Selected culture: @Culture</span>
+
+
+@code {
+    [Parameter]
+    public string Culture { get; set; }
+
+    public decimal DecimalNumber { get; set; } = 3.1m;
+
+    protected override void OnInitialized()
+    {
+        for (var i = 0; i < 100; i++)
+        {
+            DecimalNumber += 0.1m;
+        }
+    }
+}

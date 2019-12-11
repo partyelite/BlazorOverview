@@ -1,0 +1,17 @@
+﻿Hello there. I can update time
+<br/>
+<button @onclick="UpdateTime">Update time</button>
+<br/>
+
+
+@code {
+
+    [CascadingParameter] 
+    public ComponentCommunication Container { get; set; }
+
+
+    void UpdateTime()
+    {
+        Container.UpdateTime(DateTime.Now.ToLongTimeString());
+    }
+}

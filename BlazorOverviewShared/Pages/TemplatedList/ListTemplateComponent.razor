@@ -1,0 +1,17 @@
+﻿@typeparam TItem
+
+<div>
+    @foreach(var item in Items)
+    {
+        @HeaderTemplate(item)
+        <br/>
+        @DetailTemplate(item)
+        <br/>
+    }
+</div>
+
+@code {
+    [Parameter] public RenderFragment<TItem> HeaderTemplate { get; set; }
+    [Parameter] public RenderFragment<TItem> DetailTemplate { get; set; }
+    [Parameter] public IEnumerable<TItem> Items { get; set; }
+}

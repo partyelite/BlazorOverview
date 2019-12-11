@@ -1,0 +1,92 @@
+﻿@page "/componentcommunication"
+
+@implements IDisposable
+<h3>ComponentCommunication</h3>
+<button @onclick="()=>ShowCommWay(0)">EventCallback</button>
+&nbsp;&nbsp;
+<button @onclick="()=>ShowCommWay(1)">Cascading values</button>
+&nbsp;&nbsp;
+<button @onclick="()=>ShowCommWay(2)">State container</button>
+<br/><br/>
+
+@if (CurrentVisible == 0)
+{
+    <div style="outline:#4CAF50 solid 2px">
+        <b>Event callback</b><br /><br />
+        <ChildEventCallbackCommunicationComponent OnTimeUpdated="ChangeTime"></ChildEventCallbackCommunicationComponent><br />
+        <ChildEventCallbackCommunicationComponent2 Time="@EventCallbackTime"></ChildEventCallbackCommunicationComponent2>
+    </div>
+}
+
+@if (CurrentVisible == 1)
+{
+    <div style="outline:#4CAF50 solid 2px">
+        <b>Cascading values</b><br /><br />
+
+        <CascadingValue Value="@this">
+            <ChildCascadingValuesCommunicationComponent /><br />
+            <ChildCascadingValuesCommunicationComponent2 />
+        </CascadingValue>
+
+    </div>
+}
+
+@if (CurrentVisible == 2)
+{
+    <div style="outline:#4CAF50 solid 2px">
+        <b>State container</b><br />
+
+        <span>State container time: @TimeState.SelectedTime</span>
+        <br /><br/>
+
+        <ChildStateContanerCommunicationComponent /><br />
+        <ChildStateContanerCommunicationComponent2 />
+
+    </div>
+}
+
+@code {
+
+    #region EventCallback
+    public string EventCallbackTime { get; set; } = DateTime.Now.ToLongTimeString();
+
+    void ChangeTime(string newTime)
+    {
+        EventCallbackTime = newTime;
+    }
+    #endregion
+
+    #region Cascading values
+
+    public string Time { get; private set; } = DateTime.Now.ToLongTimeString();
+
+    public void UpdateTime(string time)
+    {
+        Time = time;
+        StateHasChanged();
+    }
+
+    #endregion
+
+    #region StateContainer
+    [Inject] 
+    TimeState TimeState { get; set; }
+
+    protected override void OnInitialized()
+    {
+        TimeState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        TimeState.OnChange -= StateHasChanged;
+    }
+    #endregion
+
+    public int CurrentVisible { get; set; } = 0;
+
+    private void ShowCommWay(int commWay)
+    {
+        CurrentVisible = commWay;
+    }
+}

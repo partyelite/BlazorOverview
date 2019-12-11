@@ -1,0 +1,17 @@
+﻿@page "/useronly"
+
+<h3>UserOnly</h3>
+<br/>
+
+<AuthorizeView Roles="User">
+    <Authorized>
+        Ovo je vidljivo samo običnim userima...
+    </Authorized>
+    <NotAuthorized>
+        Niste prijavljeni kao običan user...
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+}

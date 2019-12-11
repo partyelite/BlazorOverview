@@ -1,0 +1,15 @@
+﻿Hello there. I can update time
+<br />
+<button @onclick="UpdateTime">Update time</button>
+
+
+@code {
+
+    [Parameter]
+    public EventCallback<string> OnTimeUpdated { get; set; }
+
+    private void UpdateTime()
+    {
+        OnTimeUpdated.InvokeAsync($"It is: {DateTime.Now.ToLongTimeString()}");
+    }
+}

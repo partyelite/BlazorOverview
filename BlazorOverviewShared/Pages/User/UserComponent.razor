@@ -1,0 +1,53 @@
+﻿
+<h3>User editor</h3>
+<br/>
+
+<span>Name:</span>
+<br />
+
+<input type="text" @bind-value="User.Name" style="width:200px" />
+
+<br />
+<br />
+<span>Lastname:</span>
+<br />
+
+<input type="text" @bind-value="User.LastName" @bind-value:event="oninput" style="width:200px" />
+
+<br />
+<br />
+<span>Level:</span>
+<br />
+
+<input type="number" @bind-value="User.Level" style="width:200px" />
+
+<br />
+<br />
+
+<button @onclick="UpdateData">Randomize user data</button>
+
+<br /><br/>
+
+<h3>Preview</h3>
+
+Name: @User.Name
+<br />
+Lastname: @User.LastName
+<br />
+Level: @User.Level
+
+@code {
+
+    [Parameter]
+    public UserModel User { get; set; }
+
+    [Inject]
+    public UserMock MockData { get; set; }
+
+    private void UpdateData()
+    {
+        User.Name = MockData.GetNextName();
+        User.LastName = MockData.GetNextLastName();
+        User.Level = MockData.GetNextLevel();
+    }
+}

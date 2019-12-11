@@ -1,0 +1,57 @@
+﻿@page "/login"
+@using BlazorOverviewShared.Pages.User
+
+@inject AuthService AuthService
+@inject NavigationManager NavigationManager
+
+<h1>Login</h1>
+
+@if (ShowErrors)
+{
+    <div class="alert alert-danger" role="alert">
+        <p>@Error</p>
+    </div>
+}
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Please enter your name</h5>
+        <EditForm Model="User" OnValidSubmit="HandleLogin">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group">
+                <label for="email">Name</label>
+                <InputText Id="email" Class="form-control" @bind-Value="User.Name" />
+                <ValidationMessage For="@(() => User.Name)" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    public UserModel User = new UserModel();
+    private bool ShowErrors;
+    private string Error = "";
+
+    private async Task HandleLogin()
+    {
+        ShowErrors = false;
+
+        var isOk = await AuthService.Login(User.Name);
+
+        if (isOk)
+        {
+            NavigationManager.NavigateTo("/authenticated");
+        }
+        else
+        {
+            Error = "Prijava nije uspjela";
+            ShowErrors = true;
+        }
+    }
+
+}

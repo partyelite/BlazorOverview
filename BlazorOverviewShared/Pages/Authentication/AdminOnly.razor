@@ -1,0 +1,14 @@
+﻿@page "/adminonly"
+<h3>AdminOnly</h3>
+<br/>
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        Ovo je vidljivo samo adminima...
+    </Authorized>
+    <NotAuthorized>
+        Žao nam je, niste admin...
+    </NotAuthorized>
+</AuthorizeView>
+@code {
+
+}
